@@ -70,7 +70,7 @@ class FileParser
 
     number_pages = 0
 
-    cur_page = Page.new("Title")
+    cur_page = Page.new("")
 
     f.each_line do |line|
       line.chomp!
@@ -101,7 +101,16 @@ class Page
 
   def initialize(title)
     @lines = []
+    if title != ""
+      @lines << '--heading ' + title
+    end
+
+    @lines << '--withborder'
     @title = title
+    if title == ""
+      @title = "Title"
+    end
+
     @cur_line = 0
     @eop = false
   end
@@ -158,359 +167,8 @@ class Page
   end
 end
 
-
-
-# Implements a generic visualizer from which all other visualizers need to be
-# derived. If Ruby supported abstract methods, all the do_* methods would be
-# abstract.
-class TppVisualizer
-
-  def initialize
-    # nothing
-  end
-
-  # Splits a line into several lines, where each of the result lines is at most
-  # _width_ characters long, caring about word boundaries, and returns an array
-  # of strings.
-  def split_lines(text,width)
-    lines = []
-    if text then
-      begin
-        i = width
-        if text.length <= i then # text length is OK -> add it to array and stop splitting
-          lines << text
-          text = ""
-        else
-          # search for word boundary (space actually)
-          while i > 0 and text[i] != ' '[0] do
-            i -= 1
-          end
-          # if we can't find any space character, simply cut it off at the maximum width
-          if i == 0 then
-            i = width
-          end
-          # extract line
-          x = text[0..i-1]
-          # remove extracted line
-          text = text[i+1..-1]
-          # added line to array
-          lines << x
-        end
-      end while text.length > 0
-    end
-    return lines
-  end
-
-  def do_footer(footer_text)
-    $stderr.puts "Error: TppVisualizer#do_footer has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_header(header_text)
-    $stderr.puts "Error: TppVisualizer#do_header has been called directly."
-    Kernel.exit(1)
-  end
-
-
-  def do_refresh
-    $stderr.puts "Error: TppVisualizer#do_refresh has been called directly."
-    Kernel.exit(1)
-  end
-
-  def new_page
-    $stderr.puts "Error: TppVisualizer#new_page has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_heading(text)
-    $stderr.puts "Error: TppVisualizer#do_heading has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_withborder
-    $stderr.puts "Error: TppVisualizer#do_withborder has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_horline
-    $stderr.puts "Error: TppVisualizer#do_horline has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_color(text)
-    $stderr.puts "Error: TppVisualizer#do_color has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_center(text)
-    $stderr.puts "Error: TppVisualizer#do_center has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_right(text)
-    $stderr.puts "Error: TppVisualizer#do_right has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_exec(cmdline)
-    $stderr.puts "Error: TppVisualizer#do_exec has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_wait
-    $stderr.puts "Error: TppVisualizer#do_wait has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_beginoutput
-    $stderr.puts "Error: TppVisualizer#do_beginoutput has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_beginshelloutput
-    $stderr.puts "Error: TppVisualizer#do_beginshelloutput has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_endoutput
-    $stderr.puts "Error: TppVisualizer#do_endoutput has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_endshelloutput
-    $stderr.puts "Error: TppVisualizer#do_endshelloutput has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_sleep(time2sleep)
-    $stderr.puts "Error: TppVisualizer#do_sleep has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_boldon
-    $stderr.puts "Error: TppVisualizer#do_boldon has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_boldoff
-    $stderr.puts "Error: TppVisualizer#do_boldoff has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_revon
-    $stderr.puts "Error: TppVisualizer#do_revon has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_revoff
-    $stderr.puts "Error: TppVisualizer#do_revoff has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_ulon
-    $stderr.puts "Error: TppVisualizer#do_ulon has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_uloff
-    $stderr.puts "Error: TppVisualizer#do_uloff has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_beginslideleft
-    $stderr.puts "Error: TppVisualizer#do_beginslideleft has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_endslide
-    $stderr.puts "Error: TppVisualizer#do_endslide has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_beginslideright
-    $stderr.puts "Error: TppVisualizer#do_beginslideright has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_beginslidetop
-    $stderr.puts "Error: TppVisualizer#do_beginslidetop has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_beginslidebottom
-    $stderr.puts "Error: TppVisualizer#do_beginslidebottom has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_sethugefont
-    $stderr.puts "Error: TppVisualizer#do_sethugefont has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_huge(text)
-    $stderr.puts "Error: TppVisualizer#do_huge has been called directly."
-    Kernel.exit(1)
-  end
-
-  def print_line(line)
-    $stderr.puts "Error: TppVisualizer#print_line has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_title(title)
-    $stderr.puts "Error: TppVisualizer#do_title has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_author(author)
-    $stderr.puts "Error: TppVisualizer#do_author has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_date(date)
-    $stderr.puts "Error: TppVisualizer#do_date has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_bgcolor(color)
-    $stderr.puts "Error: TppVisualizer#do_bgcolor has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_fgcolor(color)
-    $stderr.puts "Error: TppVisualizer#do_fgcolor has been called directly."
-    Kernel.exit(1)
-  end
-
-  def do_color(color)
-    $stderr.puts "Error: TppVisualizer#do_color has been called directly."
-    Kernel.exit(1)
-  end
-
-  # Receives a _line_, parses it if necessary, and dispatches it
-  # to the correct method which then does the correct processing.
-  # It returns whether the controller shall wait for input.
-  def visualize(line)
-    case line
-      when /^--heading /
-        text = line.sub(/^--heading /,"")
-        do_heading(text)
-      when /^--withborder/
-        do_withborder
-      when /^--horline/
-        do_horline
-      when /^--color /
-        text = line.sub(/^--color /,"")
-        text.strip!
-        do_color(text)
-      when /^--center /
-        text = line.sub(/^--center /,"")
-        do_center(text)
-      when /^--right /
-        text = line.sub(/^--right /,"")
-        do_right(text)
-      when /^--exec /
-        cmdline = line.sub(/^--exec /,"")
-        do_exec(cmdline)
-      when /^---/
-        do_wait
-        return true
-      when /^--beginoutput/
-        do_beginoutput
-      when /^--beginshelloutput/
-        do_beginshelloutput
-      when /^--endoutput/
-        do_endoutput
-      when /^--endshelloutput/
-        do_endshelloutput
-      when /^--sleep /
-        time2sleep = line.sub(/^--sleep /,"")
-        do_sleep(time2sleep)
-      when /^--boldon/
-        do_boldon
-      when /^--boldoff/
-        do_boldoff
-      when /^--revon/
-        do_revon
-      when /^--revoff/
-        do_revoff
-      when /^--ulon/
-        do_ulon
-      when /^--uloff/
-        do_uloff
-      when /^--beginslideleft/
-        do_beginslideleft
-      when /^--endslideleft/, /^--endslideright/, /^--endslidetop/, /^--endslidebottom/
-        do_endslide
-      when /^--beginslideright/
-        do_beginslideright
-      when /^--beginslidetop/
-        do_beginslidetop
-      when /^--beginslidebottom/
-        do_beginslidebottom
-      when /^--sethugefont /
-        params = line.sub(/^--sethugefont /,"")
-        do_sethugefont(params.strip)
-      when /^--huge /
-        figlet_text = line.sub(/^--huge /,"")
-        do_huge(figlet_text)
-      when /^--footer /
-        @footer_txt = line.sub(/^--footer /,"")
-        do_footer(@footer_txt)
-      when /^--header /
-        @header_txt = line.sub(/^--header /,"")
-        do_header(@header_txt)
-      when /^--title /
-        title = line.sub(/^--title /,"")
-        do_title(title)
-      when /^--author /
-        author = line.sub(/^--author /,"")
-        do_author(author)
-      when /^--date /
-        date = line.sub(/^--date /,"")
-        if date == "today" then
-          date = Time.now.strftime("%b %d %Y")
-        elsif date =~ /^today / then
-          date = Time.now.strftime(date.sub(/^today /,""))
-        end
-        do_date(date)
-      when /^--bgcolor /
-        color = line.sub(/^--bgcolor /,"").strip
-        do_bgcolor(color)
-      when /^--fgcolor /
-        color = line.sub(/^--fgcolor /,"").strip
-        do_fgcolor(color)
-      when /^--color /
-        color = line.sub(/^--color /,"").strip
-        do_color(color)
-      when /^--include-file /
-        @lastFileName = line.sub(/^--include-file /,"").strip
-        do_beginoutput
-        print_line(@lastFileName)
-        do_beginoutput
-        f = File.open(@lastFileName)
-        f.each_line do |fileLine|
-          fileLine.chomp!
-          if fileLine
-            print_line(fileLine)
-          end
-        end
-        do_endoutput
-    else
-      print_line(line)
-    end
-
-    return false
-  end
-
-  def close
-    # nothing
-  end
-
-end
-
 # Implements an interactive visualizer which builds on top of ncurses.
-class NcursesVisualizer < TppVisualizer
+class NcursesVisualizer
 
   def initialize
     @figletfont = "standard"
@@ -526,12 +184,11 @@ class NcursesVisualizer < TppVisualizer
     Ncurses.start_color()
     Ncurses.use_default_colors()
     do_bgcolor("black")
-    #do_fgcolor("white")
     @fgcolor = ColorMap.get_color_pair("white")
     @voffset = 5
     @indent = 3
     @cur_line = @voffset
-    @output = @shelloutput = false
+    @OUTPUT = @shelloutput = false
   end
 
   def get_key
@@ -598,11 +255,6 @@ class NcursesVisualizer < TppVisualizer
     @screen.refresh
   end
 
-  def do_withborder
-    @withborder = true
-    draw_border
-  end
-
   def draw_border
     @screen.move(0,0)
     @screen.addstr(".")
@@ -620,7 +272,7 @@ class NcursesVisualizer < TppVisualizer
     end
   end
 
-  def new_page
+  def new_page(title)
     @cur_line = @voffset
     @output = @shelloutput = false
     setsizes
@@ -723,14 +375,7 @@ class NcursesVisualizer < TppVisualizer
   end
 
   def do_exec(cmdline)
-    rc = Kernel.system(cmdline)
-    if not rc then
-      # @todo: add error message
-    end
-  end
-
-  def do_wait
-    # nothing
+    Kernel.system(cmdline)
   end
 
   def do_beginoutput
@@ -898,8 +543,7 @@ class NcursesVisualizer < TppVisualizer
       @screen.addstr(x.chr)
       @screen.refresh()
       r = rand(20)
-      time_to_sleep = (5 + r).to_f / 250;
-      # puts "#{time_to_sleep} #{r}"
+      time_to_sleep = (2 + r).to_f / 1000;
       Kernel.sleep(time_to_sleep)
     end
   end
@@ -927,7 +571,6 @@ class NcursesVisualizer < TppVisualizer
         Kernel.sleep(time_to_sleep)
       end # do
     when "top"
-      # ycount = @cur_line
       new_scr = @screen.dupwin
       1.upto(@cur_line) do |i|
         Ncurses.overwrite(new_scr,@screen) # overwrite @screen with new_scr
@@ -959,7 +602,7 @@ class NcursesVisualizer < TppVisualizer
       if (@output or @shelloutput) and ! @slideoutput then
         @screen.addstr("| ")
       end
-      if @shelloutput and (l =~ /^\$/ or l=~ /^%/ or l =~ /^#/) then # allow sh and csh style prompts
+      if @shelloutput then # allow sh and csh style prompts
         type_line(l)
       elsif @slideoutput then
         slide_text(l)
@@ -1001,7 +644,6 @@ class NcursesVisualizer < TppVisualizer
     prompt_indent = 12
     @screen.move(@termheight - 2, @indent + prompt_indent)
     @screen.addstr(prompt)
-    # @screen.refresh();
     Ncurses.echo
     @screen.scanw("%d",page)
     Ncurses.noecho
@@ -1048,310 +690,155 @@ class NcursesVisualizer < TppVisualizer
     @screen.attroff(A_BOLD)
   end
 
-end
-
-
-# Implements a visualizer which converts TPP source to LaTeX-beamer source (http://latex-beamer.sf.net/
-class LatexVisualizer < TppVisualizer
-
-  def initialize(outputfile)
-    @filename = outputfile
-    begin
-      @f = File.open(@filename,"w+")
-    rescue
-      $stderr.print "Error: couldn't open file: #{$!}"
-      Kernel.exit(1)
-    end
-    @slide_open = false
-    @verbatim_open = false
-    @width = 50
-    @title = @date = @author = false
-    @begindoc = false
-    @f.puts '% Filename:      tpp.tex
-% Purpose:       template file for tpp latex export
-% Authors:       (c) Andreas Gredler, Michael Prokop http://grml.org/
-% License:       This file is licensed under the GPL v2.
-% Latest change: Fre Apr 15 20:34:37 CEST 2005
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\documentclass{beamer}
-
-\mode<presentation>
-{
-  \usetheme{Montpellier}
-  \setbeamercovered{transparent}
-}
-
-\usepackage[german]{babel}
-\usepackage{umlaut}
-\usepackage[latin1]{inputenc}
-\usepackage{times}
-\usepackage[T1]{fontenc}
-
-'
-  end
-
-  def do_footer(footer_text)
-  end
-
-  def do_header(header_text)
-  end
-
-  def do_refresh
-  end
-
-  def try_close
-    if @verbatim_open then
-      @f.puts '\end{verbatim}'
-      @verbatim_open = false
-    end
-    if @slide_open then
-      @f.puts '\end{frame}'
-      @slide_open = false
-    end
-  end
-
-  def new_page
-    try_close
-  end
-
-  def do_heading(text)
-    try_close
-    @f.puts "\\section{#{text}}"
-  end
-
-  def do_withborder
-  end
-
-  def do_horline
-  end
-
-  def do_color(text)
-  end
-
-  def do_center(text)
-    print_line(text)
-  end
-
-  def do_right(text)
-    print_line(text)
-  end
-
-  def do_exec(cmdline)
-  end
-
-  def do_wait
-  end
-
-  def do_beginoutput
-    # TODO: implement output stuff
-  end
-
-  def do_beginshelloutput
-  end
-
-  def do_endoutput
-  end
-
-  def do_endshelloutput
-  end
-
-  def do_sleep(time2sleep)
-  end
-
-  def do_boldon
-  end
-
-  def do_boldoff
-  end
-
-  def do_revon
-  end
-
-  def do_revoff
-  end
-
-  def do_ulon
-  end
-
-  def do_uloff
-  end
-
-  def do_beginslideleft
-  end
-
-  def do_endslide
-  end
-
-  def do_beginslideright
-  end
-
-  def do_beginslidetop
-  end
-
-  def do_beginslidebottom
-  end
-
-  def do_sethugefont(text)
-  end
-
-  def do_huge(text)
-  end
-
-  def try_open
-    if not @begindoc then
-      @f.puts '\begin{document}'
-      @begindoc = true
-    end
-    if not @slide_open then
-      @f.puts '\begin{frame}[fragile]'
-      @slide_open = true
-    end
-    if not @verbatim_open then
-      @f.puts '\begin{verbatim}'
-      @verbatim_open = true
-    end
-  end
-
-  def try_intro
-    if @author and @title and @date and not @begindoc then
-      @f.puts '\begin{document}'
-      @begindoc = true
-    end
-    if @author and @title and @date then
-      @f.puts '\begin{frame}
-        \titlepage
-      \end{frame}'
-    end
-  end
-
-  def print_line(line)
-    try_open
-    split_lines(line,@width).each do |l|
-      @f.puts "#{l}"
-    end
-  end
-
-  def do_title(title)
-    @f.puts "\\title[#{title}]{#{title}}"
-    @title = true
-    try_intro
-  end
-
-  def do_author(author)
-    @f.puts "\\author{#{author}}"
-    @author = true
-    try_intro
-  end
-
-  def do_date(date)
-    @f.puts "\\date{#{date}}"
-    @date = true
-    try_intro
-  end
-
-  def do_bgcolor(color)
-  end
-
-  def do_fgcolor(color)
-  end
-
-  def do_color(color)
-  end
-
-  def close
-    try_close
-    @f.puts '\end{document}
-    %%%%% END OF FILE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
-    @f.close
-  end
-
-end
-
-
-# Implements a generic controller from which all other controllers need to be derived.
-class TppController
-
-  def initialize
-    $stderr.puts "Error: TppController.initialize has been called directly!"
-    Kernel.exit(1)
-  end
-
-  def close
-    $stderr.puts "Error: TppController.close has been called directly!"
-    Kernel.exit(1)
-  end
-
-  def run
-    $stderr.puts "Error: TppController.run has been called directly!"
-    Kernel.exit(1)
-  end
-
-end
-
-# Implements a non-interactive controller for ncurses. Useful for displaying
-# unattended presentation.
-class AutoplayController < TppController
-
-  def initialize(filename,secs,visualizer_class)
-    @filename = filename
-    @vis = visualizer_class.new
-    @seconds = secs
-    @cur_page = 0
-  end
-
-  def close
-    @vis.close
-  end
-
-  def run
-    begin
-      @reload_file = false
-      parser = FileParser.new(@filename)
-      @pages = parser.get_pages
-      if @cur_page >= @pages.size then
-        @cur_page = @pages.size - 1
-      end
-      @vis.clear
-      @vis.new_page
-      do_run
-    end while @reload_file
-  end
-
-  def do_run
-    loop do
-      wait = false
-      @vis.draw_slidenum(@cur_page + 1, @pages.size, false)
-      # read and visualize lines until the visualizer says "stop" or we reached end of page
+  # Splits a line into several lines, where each of the result lines is at most
+  # _width_ characters long, caring about word boundaries, and returns an array
+  # of strings.
+  def split_lines(text,width)
+    lines = []
+    if text then
       begin
-        line = @pages[@cur_page].next_line
-        eop = @pages[@cur_page].eop?
-        wait = @vis.visualize(line)
-      end while not wait and not eop
-      # draw slide number on the bottom left and redraw:
-      @vis.draw_slidenum(@cur_page + 1, @pages.size, eop)
-      @vis.do_refresh
-
-      if eop then
-        if @cur_page + 1 < @pages.size then
-          @cur_page += 1
+        i = width
+        if text.length <= i then # text length is OK -> add it to array and stop splitting
+          lines << text
+          text = ""
         else
-          @cur_page = 0
+          # search for word boundary (space actually)
+          while i > 0 and text[i] != ' '[0] do
+            i -= 1
+          end
+          # if we can't find any space character, simply cut it off at the maximum width
+          if i == 0 then
+            i = width
+          end
+          # extract line
+          x = text[0..i-1]
+          # remove extracted line
+          text = text[i+1..-1]
+          # added line to array
+          lines << x
         end
-        @pages[@cur_page].reset_eop
-        @vis.new_page
-      end
-
-      Kernel.sleep(@seconds)
-    end # loop
+      end while text.length > 0
+    end
+    return lines
   end
 
+  # Receives a _line_, parses it if necessary, and dispatches it
+  # to the correct method which then does the correct processing.
+  # It returns whether the controller shall wait for input.
+  def visualize(line)
+    case line
+      when /^--heading /
+        text = line.sub(/^--heading /,"")
+        do_heading(text)
+      when /^--withborder/
+        draw_border
+      when /^--horline/
+        do_horline
+      when /^--color /
+        text = line.sub(/^--color /,"")
+        text.strip!
+        do_color(text)
+      when /^--center /
+        text = line.sub(/^--center /,"")
+        do_center(text)
+      when /^--right /
+        text = line.sub(/^--right /,"")
+        do_right(text)
+      when /^--exec /
+        cmdline = line.sub(/^--exec /,"")
+        do_exec(cmdline)
+      when /^---/
+        return true
+      when /^--beginoutput/
+        do_beginoutput
+      when /^--beginshelloutput/
+        do_beginshelloutput
+      when /^--endoutput/
+        do_endoutput
+      when /^--endshelloutput/
+        do_endshelloutput
+      when /^--sleep /
+        time2sleep = line.sub(/^--sleep /,"")
+        do_sleep(time2sleep)
+      when /^--boldon/
+        do_boldon
+      when /^--boldoff/
+        do_boldoff
+      when /^--revon/
+        do_revon
+      when /^--revoff/
+        do_revoff
+      when /^--ulon/
+        do_ulon
+      when /^--uloff/
+        do_uloff
+      when /^--beginslideleft/
+        do_beginslideleft
+      when /^--endslideleft/, /^--endslideright/, /^--endslidetop/, /^--endslidebottom/
+        do_endslide
+      when /^--beginslideright/
+        do_beginslideright
+      when /^--beginslidetop/
+        do_beginslidetop
+      when /^--beginslidebottom/
+        do_beginslidebottom
+      when /^--sethugefont /
+        params = line.sub(/^--sethugefont /,"")
+        do_sethugefont(params.strip)
+      when /^--huge /
+        figlet_text = line.sub(/^--huge /,"")
+        do_huge(figlet_text)
+      when /^--footer /
+        @footer_txt = line.sub(/^--footer /,"")
+        do_footer(@footer_txt)
+      when /^--header /
+        @header_txt = line.sub(/^--header /,"")
+        do_header(@header_txt)
+      when /^--title /
+        title = line.sub(/^--title /,"")
+        do_title(title)
+      when /^--author /
+        author = line.sub(/^--author /,"")
+        do_author(author)
+      when /^--date /
+        date = line.sub(/^--date /,"")
+        if date == "today" then
+          date = Time.now.strftime("%b %d %Y")
+        elsif date =~ /^today / then
+          date = Time.now.strftime(date.sub(/^today /,""))
+        end
+        do_date(date)
+      when /^--bgcolor /
+        color = line.sub(/^--bgcolor /,"").strip
+        do_bgcolor(color)
+      when /^--fgcolor /
+        color = line.sub(/^--fgcolor /,"").strip
+        do_fgcolor(color)
+      when /^--color /
+        color = line.sub(/^--color /,"").strip
+        do_color(color)
+      when /^--include-file /
+        @lastFileName = line.sub(/^--include-file /,"").strip
+        do_beginoutput
+        print_line(@lastFileName)
+        do_beginoutput
+        f = File.open(@lastFileName)
+        f.each_line do |fileLine|
+          fileLine.chomp!
+          if fileLine
+            print_line(fileLine)
+          end
+        end
+        do_endoutput
+    else
+      print_line(line)
+    end
+
+    return false
+  end
 end
 
-# Implements an interactive controller which feeds the visualizer until it is
-# told to stop, and then reads a key press and executes the appropiate action.
-class InteractiveController < TppController
-
+class InteractiveController
   def initialize(filename,visualizer_class)
     @filename = filename
     @vis = visualizer_class.new
@@ -1371,7 +858,7 @@ class InteractiveController < TppController
         @cur_page = @pages.size - 1
       end
       @vis.clear
-      @vis.new_page
+      @vis.new_page(@pages[@cur_page].title)
       do_run
     end while @reload_file
   end
@@ -1397,8 +884,6 @@ class InteractiveController < TppController
         case ch
           when :quit
             return
-          when :redraw
-            # @todo: actually implement redraw
           when :lastpage
             @cur_page = @pages.size - 1
             break
@@ -1418,7 +903,7 @@ class InteractiveController < TppController
             if p >= 0 and p < @pages.size
               @cur_page = p
               @pages[@cur_page].reset_eop
-              @vis.new_page
+              @vis.new_page(@pages[@cur_page].title)
             else
               @vis.restore_screen(screen)
             end
@@ -1436,14 +921,14 @@ class InteractiveController < TppController
             if @cur_page + 1 < @pages.size and eop then
               @cur_page += 1
               @pages[@cur_page].reset_eop
-              @vis.new_page
+              @vis.new_page(@pages[@cur_page].title)
             end
             break
           when :keyleft
             if @cur_page > 0 then
               @cur_page -= 1
               @pages[@cur_page].reset_eop
-              @vis.new_page
+              @vis.new_page(@pages[@cur_page].title)
             end
             break
           when :keyresize
@@ -1452,252 +937,21 @@ class InteractiveController < TppController
       end
     end # loop
   end
-
-end
-
-
-# Implements a visualizer which converts TPP source to a nicely formatted text
-# file which can e.g. be used as handout.
-class TextVisualizer < TppVisualizer
-
-  def initialize(outputfile)
-    @filename = outputfile
-    begin
-      @f = File.open(@filename,"w+")
-    rescue
-      $stderr.print "Error: couldn't open file: #{$!}"
-      Kernel.exit(1)
-    end
-    @output_env = false
-    @title = @author = @date = false
-    @figletfont = "small"
-    @width = 80
-  end
-
-  def do_footer(footer_text)
-  end
-
-  def do_header(header_text)
-  end
-
-  def do_refresh
-  end
-
-  def new_page
-    @f.puts "--------------------------------------------"
-  end
-
-  def do_heading(text)
-    @f.puts "\n"
-    split_lines(text,@width).each do |l|
-      @f.puts "#{l}\n"
-    end
-    @f.puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-  end
-
-  def do_withborder
-  end
-
-  def do_horline
-    @f.puts "********************************************"
-  end
-
-  def do_color(text)
-  end
-
-  def do_exec(cmdline)
-  end
-
-  def do_wait
-  end
-
-  def do_beginoutput
-    @f.puts ".---------------------------"
-    @output_env = true
-  end
-
-  def do_beginshelloutput
-    do_beginoutput
-  end
-
-  def do_endoutput
-    @f.puts "`---------------------------"
-    @output_env = false
-  end
-
-  def do_endshelloutput
-    do_endoutput
-  end
-
-  def do_sleep(time2sleep)
-  end
-
-  def do_boldon
-  end
-
-  def do_boldoff
-  end
-
-  def do_revon
-  end
-
-  def do_revoff
-  end
-
-  def do_ulon
-  end
-
-  def do_uloff
-  end
-
-  def do_beginslideleft
-  end
-
-  def do_endslide
-  end
-
-  def do_beginslideright
-  end
-
-  def do_beginslidetop
-  end
-
-  def do_beginslidebottom
-  end
-
-  def do_sethugefont(text)
-    @figletfont = text
-  end
-
-  def do_huge(text)
-    output_width = @width
-    output_width -= 2 if @output_env
-    op = IO.popen("figlet -f #{@figletfont} -w @output_width -k \"#{text}\"","r")
-    op.readlines.each do |line|
-      print_line(line)
-    end
-    op.close
-  end
-
-  def print_line(line)
-    lines = split_lines(line,@width)
-    lines.each do |l|
-      if @output_env then
-        @f.puts "| #{l}"
-      else
-        @f.puts "#{l}"
-      end
-    end
-  end
-
-  def do_center(text)
-    lines = split_lines(text,@width)
-    lines.each do |line|
-      spaces = (@width - line.length) / 2
-      spaces = 0 if spaces < 0
-      spaces.times { line = " " + line }
-      print_line(line)
-    end
-  end
-
-  def do_right(text)
-    lines = split_lines(text,@width)
-    lines.each do |line|
-      spaces = @width - line.length
-      spaces = 0 if spaces < 0
-      spaces.times { line = " " + line }
-      print_line(line)
-    end
-  end
-
-  def do_title(title)
-    @f.puts "Title: #{title}"
-    @title = true
-    if @title and @author and @date then
-      @f.puts "\n\n"
-    end
-  end
-
-  def do_author(author)
-    @f.puts "Author: #{author}"
-    @author = true
-    if @title and @author and @date then
-      @f.puts "\n\n"
-    end
-  end
-
-  def do_date(date)
-    @f.puts "Date: #{date}"
-    @date = true
-    if @title and @author and @date then
-      @f.puts "\n\n"
-    end
-  end
-
-  def do_bgcolor(color)
-  end
-
-  def do_fgcolor(color)
-  end
-
-  def do_color(color)
-  end
-
-  def close
-    @f.close
-  end
-
-end
-
-# Implements a non-interactive controller to control non-interactive
-# visualizers (i.e. those that are used for converting TPP source code into
-# another format)
-class ConversionController < TppController
-
-  def initialize(input,output,visualizer_class)
-    parser = FileParser.new(input)
-    @pages = parser.get_pages
-    @vis = visualizer_class.new(output)
-  end
-
-  def run
-    @pages.each do |p|
-      begin
-        line = p.next_line
-        eop = p.eop?
-        @vis.visualize(line)
-      end while not eop
-    end
-  end
-
-  def close
-    @vis.close
-  end
-
 end
 
 # Prints a nicely formatted usage message.
 def usage
   $stderr.puts "usage: #{$0} [-t <type> -o <file>] <file>\n"
-  $stderr.puts "\t -t <type>\tset filetype <type> as output format"
-  $stderr.puts "\t -o <file>\twrite output to file <file>"
-  $stderr.puts "\t -s <seconds>\twait <seconds> seconds between slides (with -t autoplay)"
   $stderr.puts "\t --version\tprint the version"
   $stderr.puts "\t --help\t\tprint this help"
-  $stderr.puts "\n\t currently available types: ncurses (default), autoplay, latex, txt"
   Kernel.exit(1)
 end
-
-
 
 ################################
 # Here starts the main program #
 ################################
 
 input = nil
-output = nil
-type = "ncurses"
-time = 1
 
 skip_next = false
 
@@ -1710,21 +964,8 @@ ARGV.each_index do |i|
       Kernel.exit(1)
     elsif ARGV[i] == '-h' or ARGV[i] == '--help' then
       usage
-    elsif ARGV[i] == '-t' then
-      type = ARGV[i+1]
-      skip_next = true
-    elsif ARGV[i] == '-o' then
-      output = ARGV[i+1]
-      skip_next = true
-    elsif ARGV[i] == "-s" then
-      time = ARGV[i+1].to_i
-      skip_next = true
     elsif input == nil then
       input = ARGV[i]
-    end
-    if output!=nil and output==input then
-      $stderr.puts "Don't use the input file name as the output filename to prevent overwriting it. \n"
-      Kernel.exit(1)
     end
   end
 end
@@ -1733,30 +974,8 @@ if input == nil then
   usage
 end
 
-ctrl = nil
-
-case type
-  when "ncurses"
-    load_ncurses
-    ctrl = InteractiveController.new(input,NcursesVisualizer)
-  when "autoplay"
-    load_ncurses
-    ctrl = AutoplayController.new(input,time,NcursesVisualizer)
-  when "txt"
-    if output == nil then
-      usage
-    else
-      ctrl = ConversionController.new(input,output,TextVisualizer)
-    end
-  when "latex"
-    if output == nil then
-      usage
-    else
-      ctrl = ConversionController.new(input,output,LatexVisualizer)
-    end
-else
-  usage
-end # case
+load_ncurses
+ctrl = InteractiveController.new(input,NcursesVisualizer)
 
 begin
   ctrl.run

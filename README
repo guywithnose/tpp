@@ -151,8 +151,6 @@ following page-local commands are available:
 --beginslidetop: starts the "slide in from the top" mode
 --endslidetop: ends the "slide in from the top" mode
 
---withborder: makes a border around the current page
-
 --beginslidebottom: starts the "slide in from the bottom" mode
 --endslidebottom: ends the "slide in from the bottom" mode
 
@@ -172,11 +170,7 @@ Options:
 --------
 
 tpp --help: displays help in text mode
-tpp -l output input.tpp: converts tpp file into a LaTeX slide
 tpp --version: displays version number
-
-The LaTeX slide output option is currently unsupported and will most likely not
-work correctly!
 
 Vim syntax file
 ---------------
