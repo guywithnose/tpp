@@ -105,7 +105,6 @@ class Page
       @lines << '--heading ' + title
     end
 
-    @lines << '--withborder'
     @title = title
     if title == ""
       @title = "Title"
@@ -185,7 +184,7 @@ class NcursesVisualizer
     Ncurses.use_default_colors()
     do_bgcolor("black")
     @fgcolor = ColorMap.get_color_pair("white")
-    @voffset = 5
+    @voffset = 1
     @indent = 3
     @cur_line = @voffset
     @OUTPUT = @shelloutput = false
