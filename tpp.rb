@@ -234,7 +234,7 @@ class NcursesVisualizer
       when 63 #?
         return :help
       when 410 #Window resize?
-        return
+        return :reload
 
       else
         return :keyright
