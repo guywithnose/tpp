@@ -233,6 +233,8 @@ class NcursesVisualizer
         return :jumptoslide
       when 63 #?
         return :help
+      when 410 #Window resize?
+        return
 
       else
         return :keyright
@@ -414,7 +416,7 @@ class NcursesVisualizer
   end
 
   def do_footer(footer_txt)
-    @screen.move(@termheight - 3, (@termwidth - footer_txt.length)/2)
+    @screen.move(@termheight - 2, @termwidth - footer_txt.length - 2)
     @screen.addstr(footer_txt)
   end
 
@@ -891,6 +893,8 @@ class InteractiveController
               screen = @vis.store_screen
               Kernel.system("vim " + @vis.getLastFile)
               @vis.restore_screen(screen)
+              @reload_file = true
+              return
             end
             break
           when :firstpage
